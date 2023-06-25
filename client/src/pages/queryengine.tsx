@@ -1,11 +1,12 @@
 import endPoints from '@/constants/apiEndpoints'
 import { AppContext } from '@/context/appStateProvider'
 import axios from 'axios'
+import { NextPage } from 'next'
 import React, { useContext, useState } from 'react'
 import { Button, Container, FloatingLabel, Form } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
 
-const QueryEnginePage = () => {
+const QueryEnginePage: NextPage = () => {
     const [selectedDb, setSelectedDb] = useState('SQL')
     const [userQuery, setUserQuery] = useState('')
     const [dbQuery, setDbQuery] = useState('')

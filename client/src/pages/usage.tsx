@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap'
 import { NextPage } from 'next'
 import { AppContext } from '@/context/appStateProvider'
 import { SubReqLimitState } from '@/types/Types'
-import jwtDecode from 'jwt-decode'
 
 const UsagePage: NextPage = () => {
     const [{ userState, subReqLimitState }] = useContext(AppContext)
@@ -12,8 +11,7 @@ const UsagePage: NextPage = () => {
 
     useEffect(() => {
         try {
-            const decodedSubId: any = jwtDecode(userState.subscriptionKey)
-            setSelectedPlan(decodedSubId.selectedPlan)
+            setSelectedPlan(userState.subscriptionKey.split('_')[0])
         } catch (error) {
             setSelectedPlan('Free')
         }

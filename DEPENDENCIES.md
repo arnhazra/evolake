@@ -24,4 +24,3 @@
 * web3 - Ethereum JavaScript API for interacting with the Ethereum blockchain.
 * @tanstack/react-query - Query client for react data fetching.
 * concurrently - Run concurrent servers.
-* jwt-decode - Decode JWT.

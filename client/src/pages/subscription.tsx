@@ -1,30 +1,19 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap'
-import endPoints from '@/constants/apiEndpoints'
 import { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import { AppContext } from '@/context/appStateProvider'
-import axios from 'axios'
-import { toast } from 'react-hot-toast'
-import Constants from '@/constants/appConstants'
-import moment from 'moment'
 import contractAddress from '@/constants/contractAddress'
 import Link from 'next/link'
 import Show from '@/components/Show'
-import jwtDecode from 'jwt-decode'
 
 const SubscriptionPage: NextPage = () => {
     const [{ userState }] = useContext(AppContext)
     const [selectedPlan, setSelectedPlan] = useState('Free')
     const [tokenId, setTokenId] = useState('')
-    const [expiry, setExpiry] = useState(0)
 
     useEffect(() => {
         try {
-            const decodedSubId: any = jwtDecode(userState.subscriptionKey)
-            setTokenId(decodedSubId.tokenId)
-            setExpiry(decodedSubId.exp)
-            setSelectedPlan(decodedSubId.selectedPlan)
+            setSelectedPlan(userState.subscriptionKey.split('_')[0])
+            setTokenId(userState.subscriptionKey.split('_')[2])
         } catch (error) {
             setTokenId('')
         }
