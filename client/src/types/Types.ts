@@ -4,13 +4,6 @@ export type LayoutProps = {
     children: ReactNode
 }
 
-export type DatasetCardProps = {
-    id: string
-    category: string,
-    name: string,
-    rating: number
-}
-
 export type ShowProps = {
     when: boolean,
     children: ReactNode
@@ -18,13 +11,6 @@ export type ShowProps = {
 
 export type ErrorProps = {
     customMessage?: string
-}
-
-export type DatasetRequestState = {
-    searchQuery: string,
-    selectedFilter: string,
-    selectedSortOption: string
-    offset: number
 }
 
 export type UserState = {

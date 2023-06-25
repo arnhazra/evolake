@@ -8,7 +8,7 @@ import useFetchRealtime from '@/hooks/useFetchRealtime'
 import HTTPMethods from '@/constants/httpMethods'
 import moment from 'moment'
 
-const DashboardPage: NextPage = () => {
+const TransactionsPage: NextPage = () => {
     const transactions = useFetchRealtime('transactions', endPoints.getTransactionsEndpoint, HTTPMethods.POST)
 
     const transactionsToDisplay = transactions?.data?.transactions?.map((tx: any) => {
@@ -27,7 +27,7 @@ const DashboardPage: NextPage = () => {
             <Show when={!transactions.isLoading}>
                 <Container>
                     <Show when={transactions?.data?.transactions?.length > 0}>
-                        <p className='lead text-center text-white mb-4'>Transactions</p>
+                        <p className='lead text-center text-white mb-4 mt-4'>Transactions</p>
                         <Table responsive hover variant='light'>
                             <thead>
                                 <tr>
@@ -57,4 +57,4 @@ const DashboardPage: NextPage = () => {
     )
 }
 
-export default DashboardPage
+export default TransactionsPage

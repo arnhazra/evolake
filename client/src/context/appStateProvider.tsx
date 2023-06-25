@@ -17,13 +17,6 @@ const initialState = {
         subscriptionKeyUsage: 0
     },
 
-    datasetRequestState: {
-        searchQuery: '',
-        selectedFilter: 'All',
-        selectedSortOption: 'name',
-        offset: 0
-    },
-
     subPlanState: {
         basicSubscriptionPrice: '',
         standardSubscriptionPrice: '',

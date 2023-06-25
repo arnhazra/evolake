@@ -1,9 +1,8 @@
 import express, { Router } from 'express'
 import QueryController from './QueryController'
-import authorize from '../../middlewares/authorize'
 import queryAuthorizer from '../../middlewares/queryAuthorizer'
 
-export default class DatasetRouter {
+export default class QueryRouter {
     public router: Router
     public queryController: QueryController
 

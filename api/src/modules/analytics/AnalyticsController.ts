@@ -1,4 +1,6 @@
+import statusMessages from '../../constants/statusMessages'
 import AnalyticsModel from './AnalyticsModel'
+import { Request, Response } from 'express'
 
 export default class AnalyticsController {
     async createAnalytics(owner: string, query: string, response: string, subscriptionKey: string) {
@@ -12,12 +14,13 @@ export default class AnalyticsController {
         }
     }
 
-    async getAnalyticsBySubKey(subscriptionKey: string) {
+    async getAnalyticsByUser(req: Request, res: Response) {
         try {
-            const analyticsList = await AnalyticsModel.find({ subscriptionKey: subscriptionKey })
-            return analyticsList
+            const userId = req.headers.id as string
+            const analyticsList = await AnalyticsModel.find({ owner: userId }).sort({ date: -1 })
+            return res.status(200).json({ analyticsList })
         } catch (error) {
-            throw error
+            return res.status(500).json({ msg: statusMessages.connectionError })
         }
     }
 
