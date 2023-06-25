@@ -14,8 +14,8 @@ export default class QueryController {
 
     async generateQuery(req: Request, res: Response) {
         try {
-            const { selectedDb, userQuery } = req.body
-            console.log(selectedDb, userQuery)
+            const { selectedDb, userQuery, subscriptionKey } = req.body
+
             const configuration = new Configuration({ apiKey: envConfig.openAIApiKey })
             const openai = new OpenAIApi(configuration)
             const finalQuery = `Create a ${selectedDb} request to ${userQuery.charAt(0).toLowerCase() + userQuery.slice(1)}`
@@ -29,7 +29,9 @@ export default class QueryController {
                 frequency_penalty: 0.0,
                 presence_penalty: 0.0,
             })
-            return res.status(200).json({ msg: response.data.choices[0].text })
+            const generatedQuery = response.data.choices[0].text
+            this.analyticsController.createAnalytics(finalQuery, generatedQuery)
+            return res.status(200).json({ msg: generatedQuery })
         }
         catch (error) {
             return res.status(500).json(error)

@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import otptool from 'otp-without-db'
 import { validationResult } from 'express-validator'
 import statusMessages from '../../constants/statusMessages'
+import { v4 as uuidv4 } from 'uuid'
 import UserModel from './UserModel'
 import sendmail from '../../utils/mailer'
 import { setTokenInRedis, getTokenFromRedis, removeTokenFromRedis } from '../../utils/redisHelper'
@@ -110,20 +111,17 @@ export default class UserController {
     async userDetails(req: Request, res: Response) {
         try {
             const user = await UserModel.findById(req.headers.id).select('-date')
-            const { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice, basicSubscriptionReqLimit, standardSubscriptionReqLimit, premiumSubscriptionReqLimit } = envConfig
-            const subscriptionCharges = { basicSubscriptionPrice, standardSubscriptionPrice, premiumSubscriptionPrice }
-            const subscriptionReqLimit = { basicSubscriptionReqLimit, standardSubscriptionReqLimit, premiumSubscriptionReqLimit }
+            const { standardSubscriptionPrice, premiumSubscriptionPrice, standardSubscriptionReqLimit, premiumSubscriptionReqLimit } = envConfig
+            const subscriptionCharges = { standardSubscriptionPrice, premiumSubscriptionPrice }
+            const subscriptionReqLimit = { standardSubscriptionReqLimit, premiumSubscriptionReqLimit }
             let subscriptionKeyUsage = 0
             if (user) {
                 try {
                     if (user.subscriptionKey.length) {
-                        jwt.verify(user.subscriptionKey, this.subscriptionSecret, { algorithms: ['HS256'] })
-                        subscriptionKeyUsage = (await this.analyticsController.getAnalyticsBySubKey(user.subscriptionKey)).length
+                        subscriptionKeyUsage = await this.analyticsController.countAnalyticsBySubKey(user.subscriptionKey)
                     }
                     return res.status(200).json({ user, subscriptionCharges, subscriptionKeyUsage, subscriptionReqLimit })
                 } catch (error) {
-                    const subscriptionKey = ''
-                    await UserModel.findByIdAndUpdate(user._id, { subscriptionKey })
                     return res.status(200).json({ user, subscriptionCharges, subscriptionKeyUsage, subscriptionReqLimit })
                 }
             }
@@ -151,12 +149,11 @@ export default class UserController {
 
     async subscribe(req: Request, res: Response) {
         const { tokenId, selectedPlan } = req.body
-        const userId = req.headers.id
 
         try {
-            const payload = { userId, tokenId, selectedPlan }
-            const subscriptionKey = jwt.sign(payload, this.subscriptionSecret, { algorithm: 'HS256', expiresIn: '30d' })
-            await UserModel.findByIdAndUpdate(userId, { subscriptionKey })
+            const uniqueId = uuidv4()
+            const subscriptionKey = selectedPlan + '_' + uniqueId + '_' + tokenId
+            await UserModel.findByIdAndUpdate(req.headers.id, { subscriptionKey })
             return res.status(200).json({ msg: statusMessages.transactionCreationSuccess })
         }
 

@@ -1,7 +1,6 @@
 import { Button, ButtonGroup } from 'react-bootstrap'
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { NextPage } from 'next'
-import jwtDecode from 'jwt-decode'
 import { AppContext } from '@/context/appStateProvider'
 import Show from '@/components/Show'
 import SubscribeModal from '@/utils/SubscribeModal'
@@ -14,14 +13,11 @@ const PricingPage: NextPage = () => {
     const [isSubscribeModalOpened, setSubscribeModalOpened] = useState(false)
     const [isUnsubscribeModalOpened, setUnsubscribeModalOpened] = useState(false)
     const [planPrice, setPlanPrice] = useState('')
-    const [tokenId, setTokenId] = useState('')
-    const [userCurrentPlan, setUserCurrentPlan] = useState('Free')
+    const [tokenId, setTokenId] = useState(userState.subscriptionKey.split('_')[2] || '')
 
     useEffect(() => {
         try {
-            const decodedSubId: any = jwtDecode(userState.subscriptionKey)
-            setTokenId(decodedSubId.tokenId)
-            setUserCurrentPlan(decodedSubId.selectedPlan)
+            setTokenId(userState.subscriptionKey.split('_')[2])
         } catch (error) {
             setTokenId('')
         }
@@ -52,31 +48,24 @@ const PricingPage: NextPage = () => {
                 </ButtonGroup>
                 <div className='plans mt-2'>
                     <Show when={selectedPlan === 'Standard'}>
-                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.standardSubscriptionPrice} MATIC/mo</p>
+                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.standardSubscriptionPrice} MATIC</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
-                        <p className='lead'><i className='fa-solid fa-circle-check'></i>{subReqLimitState.standardSubscriptionReqLimit} API requests/month</p>
-                        <Show when={selectedPlan === userCurrentPlan}>
-                            <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
-                        </Show>
-                        <Show when={selectedPlan !== userCurrentPlan}>
-                            <Button className='btn-block' disabled={userState.subscriptionKey.length > 0} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
-                        </Show>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>{subReqLimitState.standardSubscriptionReqLimit} API requests</p>
+                        <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                     </Show>
                     <Show when={selectedPlan === 'Premium'}>
-                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.premiumSubscriptionPrice} MATIC/mo</p>
+                        <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.premiumSubscriptionPrice} MATIC</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
-                        <p className='lead'><i className='fa-solid fa-circle-check'></i>{subReqLimitState.premiumSubscriptionReqLimit} API requests/month</p>
-                        <Show when={selectedPlan === userCurrentPlan}>
-                            <Button disabled className='btn-block'>Current Plan <i className='fa-solid fa-circle-check'></i></Button>
-                        </Show>
-                        <Show when={selectedPlan !== userCurrentPlan}>
-                            <Button className='btn-block' disabled={userState.subscriptionKey.length > 0} onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
-                        </Show>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>{subReqLimitState.premiumSubscriptionReqLimit} API requests</p>
+                        <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                     </Show>
                 </div>
+                <Show when={tokenId?.length > 0}>
+                    <p className="lead-link" onClick={() => setUnsubscribeModalOpened(true)}>Unsubscribe & Refund</p>
+                </Show>
             </div>
             <SubscribeModal price={Number(planPrice) * 10000} isOpened={isSubscribeModalOpened} closeModal={() => { hideSubscribeModal() }} selectedPlan={selectedPlan} />
-            <UnsubscribeModal tokenId={tokenId} refundAmount={Number(0.20) * 5000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
+            <UnsubscribeModal tokenId={tokenId} refundAmount={Number(3.4) * 5000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
         </Fragment>
     )
 }
