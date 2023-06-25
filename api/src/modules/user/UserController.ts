@@ -14,13 +14,11 @@ import AnalyticsController from '../analytics/AnalyticsController'
 export default class UserController {
     public otpKey: string
     public authPrivateKey: string
-    public subscriptionSecret: string
     public analyticsController: AnalyticsController
 
     constructor() {
         this.otpKey = envConfig.otpKey
         this.authPrivateKey = envConfig.authPrivateKey
-        this.subscriptionSecret = envConfig.subscriptionSecret
         this.analyticsController = new AnalyticsController()
     }
 

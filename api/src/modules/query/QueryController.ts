@@ -5,11 +5,9 @@ import AnalyticsController from '../analytics/AnalyticsController'
 import statusMessages from '../../constants/statusMessages'
 
 export default class QueryController {
-    public subscriptionSecret: string
     public analyticsController: AnalyticsController
 
     constructor() {
-        this.subscriptionSecret = envConfig.subscriptionSecret
         this.analyticsController = new AnalyticsController()
     }
 

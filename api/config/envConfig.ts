@@ -7,7 +7,6 @@ export const envConfig = {
     premiumSubscriptionPrice: process.env.PREMIUM_SUBSCRIPTION_PRICE,
     standardSubscriptionReqLimit: process.env.STANDARD_SUBSCRIPTION_REQUEST_LIMIT,
     premiumSubscriptionReqLimit: process.env.PREMIUM_SUBSCRIPTION_REQUEST_LIMIT,
-    subscriptionSecret: process.env.SUBSCRIPTION_JWT_SECRET,
     mongoUri: process.env.MONGO_URI,
     redisUri: process.env.REDIS_URI,
     openAIApiKey: process.env.OPENAI_API_KEY,
