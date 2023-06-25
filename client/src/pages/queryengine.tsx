@@ -1,3 +1,4 @@
+import Show from '@/components/Show'
 import endPoints from '@/constants/apiEndpoints'
 import { AppContext } from '@/context/appStateProvider'
 import axios from 'axios'
@@ -11,6 +12,8 @@ const QueryEnginePage: NextPage = () => {
     const [userQuery, setUserQuery] = useState('')
     const [dbQuery, setDbQuery] = useState('')
     const [{ userState }] = useContext(AppContext)
+    const [isLoading, setLoading] = useState(false)
+    const [hasFetched, setFetched] = useState(false)
 
     const dbOptions = [
         { value: "SQL", label: "SQL" },
@@ -29,19 +32,25 @@ const QueryEnginePage: NextPage = () => {
 
     const fetchData = async () => {
         try {
+            setLoading(true)
+            setFetched(false)
             const subscriptionKey = userState.subscriptionKey
             const response = await axios.post(endPoints.generateQueryEndpoint, { selectedDb, userQuery, subscriptionKey })
             setDbQuery(response.data.msg)
-        } catch (error) {
-            toast.error('Invalid API Key')
+            setLoading(false)
+            setFetched(true)
+        } catch (error: any) {
+            toast.error(error?.response?.data?.msg || 'Unknown Error, try again')
+            setLoading(false)
+            setFetched(true)
         }
     }
 
     return (
         <Container>
-            <div className="jumbotron mt-4">
+            <div className="bigbox">
                 <p className="branding">Ask Your Query</p>
-                <FloatingLabel controlId='floatingSelectGrid' label='Select Filter Category'>
+                <FloatingLabel controlId='floatingSelectGrid' label='Select DB'>
                     <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
                         {dbToDisplay}
                     </Form.Select>
@@ -49,10 +58,12 @@ const QueryEnginePage: NextPage = () => {
                 <FloatingLabel controlId='floatingQuery' label='Your Query'>
                     <Form.Control type='text' placeholder='Your Query' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} />
                 </FloatingLabel><br />
-                <Button onClick={fetchData}>Generate Query</Button>
-                <div className="answer ps-4 pt-4">
-                    {dbQuery}
-                </div>
+                <Button onClick={fetchData}>Generate DB Query</Button>
+                <Show when={hasFetched}>
+                    <div className="answer ps-4 pt-4">
+                        {dbQuery}
+                    </div>
+                </Show>
             </div>
         </Container>
     )

@@ -10,7 +10,9 @@ enum statusMessages {
     invalidUser = 'Invalid User',
     mongoDbConnected = 'Mongo DB Connected',
     mongoDbConnectionErr = 'Mongo DB Connection Error',
-    redisConnected = 'Redis Connected'
+    redisConnected = 'Redis Connected',
+    apiKeyLimitReached = 'API Key Limit Reached',
+    invalidApiKey = 'Invalid API Key'
 }
 
 export default statusMessages

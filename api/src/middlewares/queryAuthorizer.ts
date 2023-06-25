@@ -24,26 +24,34 @@ async function queryAuthorizer(req: Request, res: Response, next: NextFunction) 
                     if (analyticsCount < Number(envConfig.standardSubscriptionReqLimit)) {
                         next()
                     }
+
+                    else {
+                        return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
+                    }
                 }
 
                 else if (subscriptionKey.includes('Premium')) {
                     if (analyticsCount < Number(envConfig.premiumSubscriptionReqLimit)) {
                         next()
                     }
+
+                    else {
+                        return res.status(403).json({ msg: statusMessages.apiKeyLimitReached })
+                    }
                 }
 
                 else {
-                    return res.status(403).json({ msg: statusMessages.unauthorized })
+                    return res.status(403).json({ msg: statusMessages.invalidApiKey })
                 }
             }
 
             else {
-                return res.status(403).json({ msg: statusMessages.unauthorized })
+                return res.status(403).json({ msg: statusMessages.invalidApiKey })
             }
         }
 
         catch (error) {
-            return res.status(403).json({ msg: statusMessages.invalidToken })
+            return res.status(403).json({ msg: statusMessages.invalidApiKey })
         }
     }
 }
