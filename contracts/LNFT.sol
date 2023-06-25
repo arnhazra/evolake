@@ -5,10 +5,10 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract AirlakeNFT is ERC721, Ownable {
+contract LenstackNFT is ERC721, Ownable {
     IERC20 public tokenContract;
 
-    constructor(address _tokenAddress) ERC721("Airlake NFT", "ANFT") {
+    constructor(address _tokenAddress) ERC721("Lenstack NFT", "LNFT") {
         tokenContract = IERC20(_tokenAddress);
     }
 

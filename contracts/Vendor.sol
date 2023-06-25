@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
-import "./AFT.sol";
+import "./LFT.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Vendor is Ownable {
-    AFTContract tokenContract;
+    LFTContract tokenContract;
     uint256 public tokensPerMatic = 10000;
     event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
     constructor(address tokenAddress) {
-        tokenContract = AFTContract(tokenAddress);
+        tokenContract = LFTContract(tokenAddress);
     }
 
     function buyTokens() public payable returns (uint256 tokenAmount) {
