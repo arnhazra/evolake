@@ -1,6 +1,4 @@
 import { Request, Response } from 'express'
-import { validationResult } from 'express-validator'
-import arraySort from 'array-sort'
 import statusMessages from '../../constants/statusMessages'
 import DatasetModel from './QueryModel'
 import jwt from 'jsonwebtoken'
@@ -8,7 +6,7 @@ import UserModel from '../user/UserModel'
 import { envConfig } from '../../../config/envConfig'
 import AnalyticsController from '../analytics/AnalyticsController'
 
-export default class DatasetController {
+export default class QueryController {
     public subscriptionSecret: string
     public analyticsController: AnalyticsController
 

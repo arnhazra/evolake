@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
 import UserController from './UserController'
-import { generateAuthCodeValidators, verifyAuthCodeValidators } from '../../validations/authValidators'
+import { requestAuthCodeValidators, verifyAuthCodeValidators } from '../../validations/authValidators'
 import authorize from '../../middlewares/authorize'
 
 export default class UserRouter {
@@ -14,7 +14,7 @@ export default class UserRouter {
     }
 
     registerRoutes() {
-        this.router.post('/generateauthcode', generateAuthCodeValidators, this.userController.generateAuthCode.bind(this.userController))
+        this.router.post('/requestAuthCode', requestAuthCodeValidators, this.userController.requestAuthCode.bind(this.userController))
         this.router.post('/verifyauthcode', verifyAuthCodeValidators, this.userController.verifyAuthCode.bind(this.userController))
         this.router.post('/user', authorize, this.userController.userDetails.bind(this.userController))
         this.router.post('/signout', authorize, this.userController.signOut.bind(this.userController))

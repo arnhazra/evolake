@@ -1,6 +1,6 @@
 import { check } from 'express-validator'
 
-export const generateAuthCodeValidators = [
+export const requestAuthCodeValidators = [
     check('email', 'Invalid Email Format').isEmail(),
 ]
 

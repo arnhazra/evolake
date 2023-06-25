@@ -12,7 +12,7 @@ export default class DatasetRouter {
     }
 
     registerRoutes() {
-        this.router.get('/query', this.queryController.getData.bind(this.queryController))
+        this.router.get('/generate', this.queryController.getData.bind(this.queryController))
     }
 
     getRouter() {

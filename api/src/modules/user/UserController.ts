@@ -23,7 +23,7 @@ export default class UserController {
         this.analyticsController = new AnalyticsController()
     }
 
-    async generateAuthCode(req: Request, res: Response) {
+    async requestAuthCode(req: Request, res: Response) {
         const errors = validationResult(req)
 
         if (!errors.isEmpty()) {

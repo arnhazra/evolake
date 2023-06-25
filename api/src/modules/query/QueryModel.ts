@@ -1,6 +1,11 @@
 import mongoose from 'mongoose'
 
 const QuerySchema = new mongoose.Schema({
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
+
     query: {
         type: String,
         required: true

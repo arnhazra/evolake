@@ -20,8 +20,8 @@ async function sendmail(email: string, otp: number) {
                 accessToken: accessToken.token,
             }
         })
-        const subject = 'Airlake Authcode'
-        const content = `Use <b>${otp}</b> as your Authcode. Do not share with anyone.`
+        const subject = 'Lenstack Verification Code'
+        const content = `Use <b>${otp}</b> as your Lenstack Verification Code. Do not share with anyone.`
         await transporter.sendMail({ from: mailerEmail, to: email, subject: subject, html: content })
     }
 
