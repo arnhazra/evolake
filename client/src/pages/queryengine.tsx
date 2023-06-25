@@ -1,20 +1,17 @@
+import endPoints from '@/constants/apiEndpoints'
+import axios from 'axios'
 import React, { useState } from 'react'
 import { Button, Container, FloatingLabel, Form } from 'react-bootstrap'
-import { Configuration, OpenAIApi } from 'openai'
-import Constants from '@/constants/appConstants'
 
 const QueryEnginePage = () => {
-    const [selectedDb, setSelectedDb] = useState('')
-    const [usertext, setUsertext] = useState('')
-    const [answer, setAnswer] = useState('')
-    const configuration = new Configuration({
-        apiKey: Constants.OpenAIAPIKey,
-    })
-    const openai = new OpenAIApi(configuration)
+    const [selectedDb, setSelectedDb] = useState('SQL')
+    const [userQuery, setUserQuery] = useState('')
+    const [dbQuery, setDbQuery] = useState('')
+    const [hasError, setError] = useState(false)
 
     const dbOptions = [
-        { value: "MongoDB", label: "Mongo DB" },
         { value: "SQL", label: "SQL" },
+        { value: "MongoDB", label: "Mongo DB" },
         { value: "PostgreSQL", label: "Postgre SQL" },
         { value: "MariaDB", label: "Maria DB" },
         { value: "Firebase", label: "Firebase" },
@@ -28,20 +25,11 @@ const QueryEnginePage = () => {
     })
 
     const fetchData = async () => {
-        const finalQuery = `Create a ${selectedDb} request to ${usertext.charAt(0).toLowerCase() + usertext.slice(1)}`
         try {
-            const response = await openai.createCompletion({
-                model: "text-davinci-003",
-                prompt: finalQuery,
-                temperature: 0.3,
-                max_tokens: 60,
-                top_p: 1.0,
-                frequency_penalty: 0.0,
-                presence_penalty: 0.0,
-            })
-            setAnswer(response.data.choices[0].text || '')
+            const response = await axios.post(endPoints.generateQueryEndpoint, { selectedDb, userQuery })
+            setDbQuery(response.data.msg)
         } catch (error) {
-            console.log(error)
+            setError(true)
         }
     }
 
@@ -55,11 +43,11 @@ const QueryEnginePage = () => {
                     </Form.Select>
                 </FloatingLabel><br />
                 <FloatingLabel controlId='floatingQuery' label='Your Query'>
-                    <Form.Control type='text' placeholder='Your Query' onChange={(e) => setUsertext(e.target.value)} autoComplete={'off'} />
+                    <Form.Control type='text' placeholder='Your Query' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} />
                 </FloatingLabel><br />
-                <Button onClick={fetchData}>Get My Query</Button>
+                <Button onClick={fetchData}>Generate Query</Button>
                 <div className="answer ps-4 pt-4">
-                    {answer}
+                    {dbQuery}
                 </div>
             </div>
         </Container>

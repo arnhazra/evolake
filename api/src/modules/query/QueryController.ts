@@ -1,8 +1,5 @@
 import { Request, Response } from 'express'
-import statusMessages from '../../constants/statusMessages'
-import DatasetModel from './QueryModel'
-import jwt from 'jsonwebtoken'
-import UserModel from '../user/UserModel'
+import { Configuration, OpenAIApi } from 'openai'
 import { envConfig } from '../../../config/envConfig'
 import AnalyticsController from '../analytics/AnalyticsController'
 
@@ -15,51 +12,27 @@ export default class QueryController {
         this.analyticsController = new AnalyticsController()
     }
 
-    async getData(req: Request, res: Response) {
+    async generateQuery(req: Request, res: Response) {
         try {
-            const subscriptionId = req.params.subscriptionId
-            const datasetId = req.params.datasetId
-            const subscription = jwt.verify(subscriptionId, this.subscriptionSecret, { algorithms: ['HS256'] })
-            const userId = (subscription as any).userId
-            const selectedPlan = (subscription as any).selectedPlan
-            const { subscriptionKey } = await UserModel.findById(userId)
-            if (subscriptionId === subscriptionKey) {
-                const txCount = (await this.analyticsController.getAnalyticsBySubKey(subscriptionKey)).length
-                switch (selectedPlan) {
-                    case 'Standard':
-                        if (txCount < Number(envConfig.standardSubscriptionReqLimit)) {
-                            const data = await DatasetModel.findById(datasetId).select('data')
-                            this.analyticsController.createAnalytics(subscriptionKey, datasetId)
-                            return res.status(200).json({ data })
-                        }
+            const { selectedDb, userQuery } = req.body
+            console.log(selectedDb, userQuery)
+            const configuration = new Configuration({ apiKey: envConfig.openAIApiKey })
+            const openai = new OpenAIApi(configuration)
+            const finalQuery = `Create a ${selectedDb} request to ${userQuery.charAt(0).toLowerCase() + userQuery.slice(1)}`
 
-                        else {
-                            throw new Error
-                        }
-
-                    case 'Premium':
-                        if (txCount < Number(envConfig.premiumSubscriptionReqLimit)) {
-                            const data = await DatasetModel.findById(datasetId).select('data')
-                            this.analyticsController.createAnalytics(subscriptionKey, datasetId)
-                            return res.status(200).json({ data })
-                        }
-
-                        else {
-                            throw new Error
-                        }
-
-                    default:
-                        break
-                }
-            }
-
-            else {
-                throw new Error
-            }
+            const response = await openai.createCompletion({
+                model: "text-davinci-003",
+                prompt: finalQuery,
+                temperature: 0.3,
+                max_tokens: 60,
+                top_p: 1.0,
+                frequency_penalty: 0.0,
+                presence_penalty: 0.0,
+            })
+            return res.status(200).json({ msg: response.data.choices[0].text })
         }
-
         catch (error) {
-            return res.status(500).json({ msg: statusMessages.connectionError })
+            return res.status(500).json(error)
         }
     }
 }
