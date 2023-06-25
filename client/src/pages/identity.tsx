@@ -19,7 +19,7 @@ const IdentityPage: NextPage = () => {
 
     useEffect(() => {
         if (localStorage.hasOwnProperty('accessToken')) {
-            router.push('/dashboard')
+            router.push('/queryengine')
         }
     }, [])
 
@@ -60,7 +60,7 @@ const IdentityPage: NextPage = () => {
             localStorage.setItem('accessToken', response.data.accessToken)
             toast.success('Successfully authenticated')
             setLoading(false)
-            router.push('/dashboard')
+            router.push('/queryengine')
         }
 
         catch (error: any) {

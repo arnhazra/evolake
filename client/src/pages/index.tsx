@@ -10,7 +10,7 @@ const HomePage: NextPage = () => {
 
 	useEffect(() => {
 		if (localStorage.hasOwnProperty('accessToken')) {
-			router.push('/dashboard')
+			router.push('/queryengine')
 		}
 	}, [])
 

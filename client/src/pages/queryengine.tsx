@@ -3,7 +3,7 @@ import { Button, Container, FloatingLabel, Form } from 'react-bootstrap'
 import { Configuration, OpenAIApi } from 'openai'
 import Constants from '@/constants/appConstants'
 
-const AskQueryPage = () => {
+const QueryEnginePage = () => {
     const [selectedDb, setSelectedDb] = useState('')
     const [usertext, setUsertext] = useState('')
     const [answer, setAnswer] = useState('')
@@ -66,4 +66,4 @@ const AskQueryPage = () => {
     )
 }
 
-export default AskQueryPage
+export default QueryEnginePage
