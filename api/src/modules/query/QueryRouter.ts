@@ -1,6 +1,7 @@
 import express, { Router } from 'express'
 import QueryController from './QueryController'
 import authorize from '../../middlewares/authorize'
+import queryAuthorizer from '../../middlewares/queryAuthorizer'
 
 export default class DatasetRouter {
     public router: Router
@@ -13,7 +14,7 @@ export default class DatasetRouter {
     }
 
     registerRoutes() {
-        this.router.post('/generate', authorize, this.queryController.generateQuery.bind(this.queryController))
+        this.router.post('/generate', queryAuthorizer, this.queryController.generateQuery.bind(this.queryController))
     }
 
     getRouter() {

@@ -1,13 +1,15 @@
 import endPoints from '@/constants/apiEndpoints'
+import { AppContext } from '@/context/appStateProvider'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Container, FloatingLabel, Form } from 'react-bootstrap'
+import { toast } from 'react-hot-toast'
 
 const QueryEnginePage = () => {
     const [selectedDb, setSelectedDb] = useState('SQL')
     const [userQuery, setUserQuery] = useState('')
     const [dbQuery, setDbQuery] = useState('')
-    const [hasError, setError] = useState(false)
+    const [{ userState }] = useContext(AppContext)
 
     const dbOptions = [
         { value: "SQL", label: "SQL" },
@@ -26,10 +28,11 @@ const QueryEnginePage = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.post(endPoints.generateQueryEndpoint, { selectedDb, userQuery })
+            const subscriptionKey = userState.subscriptionKey
+            const response = await axios.post(endPoints.generateQueryEndpoint, { selectedDb, userQuery, subscriptionKey })
             setDbQuery(response.data.msg)
         } catch (error) {
-            setError(true)
+            toast.error('Invalid API Key')
         }
     }
 

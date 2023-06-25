@@ -29,4 +29,13 @@ export default class AnalyticsController {
             throw error
         }
     }
+
+    async getAnalyticsByQuery(query: string) {
+        try {
+            const analytics = await AnalyticsModel.find({ query: query })
+            return analytics
+        } catch (error) {
+            throw error
+        }
+    }
 }

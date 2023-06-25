@@ -34,7 +34,7 @@ const SubscriptionPage: NextPage = () => {
         <Fragment>
             <div className='box'>
                 <p className='branding'>Subscription <i className='fa-solid fa-circle-plus'></i></p>
-                <p className='smalltext'>Active plan {userState.subscriptionKey.length > 0 && `valid till ${moment.unix(expiry).format('DD MMM, YYYY')}`}</p>
+                <p className='smalltext'>Active plan</p>
                 <h4>
                     {selectedPlan}
                     <Show when={userState.subscriptionKey.length > 0}>
