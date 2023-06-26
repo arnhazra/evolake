@@ -31,10 +31,9 @@ const NavBar: FC = () => {
                             <Nav className='ms-auto'>
                                 <Link href='/pricing'><Navbar.Brand>Pricing</Navbar.Brand></Link>
                                 <Link href='/usage'><Navbar.Brand>Usage</Navbar.Brand></Link>
-                                <Link href='/subscription'><Navbar.Brand>Subscription</Navbar.Brand></Link>
+                                <Link href='/wallet'><Navbar.Brand>Wallet</Navbar.Brand></Link>
                                 <Link href='/analytics'><Navbar.Brand>Analytics</Navbar.Brand></Link>
                                 <Link href='/transactions'><Navbar.Brand>Transactions</Navbar.Brand></Link>
-                                <Link href='/wallet'><Navbar.Brand>Wallet</Navbar.Brand></Link>
                                 <Link href='/account'><Navbar.Brand>Account</Navbar.Brand></Link>
                             </Nav>
                         </Navbar.Collapse>
