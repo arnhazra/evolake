@@ -50,14 +50,14 @@ const QueryEnginePage: NextPage = () => {
     return (
         <Container>
             <div className='bigbox'>
-                <p className='branding'>Ask Your Query</p>
-                <FloatingLabel controlId='floatingSelectGrid' label='Select DB'>
+                <p className='branding'>Query Engine</p>
+                <FloatingLabel controlId='floatingSelectGrid' label='Select Database'>
                     <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
                         {dbToDisplay}
                     </Form.Select>
                 </FloatingLabel><br />
-                <FloatingLabel controlId='floatingQuery' label='Your Query'>
-                    <Form.Control type='text' disabled={isFetching} placeholder='Your Query' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} />
+                <FloatingLabel controlId='floatingQuery' label='Ask Your Query In English'>
+                    <Form.Control type='text' disabled={isFetching} placeholder='Ask Your Query In English' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} />
                 </FloatingLabel><br />
                 <Button onClick={fetchData} disabled={isFetching} className='btn-block'>
                     <Show when={!isFetching}>Generate DB Query <i className='fa-solid fa-circle-arrow-right'></i></Show>
