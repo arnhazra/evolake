@@ -63,10 +63,12 @@ const QueryEnginePage: NextPage = () => {
                     <Show when={!isFetching}>Generate DB Query <i className='fa-solid fa-circle-arrow-right'></i></Show>
                     <Show when={isFetching}><i className='fas fa-circle-notch fa-spin'></i> Fetching</Show>
                 </Button>
-                <div className="answer ps-4 pt-4">
-                    <div className="copy-btn"><i className='fa-solid fa-copy' onClick={copyDBQuery}></i></div>
-                    {dbQuery}
-                </div>
+                <Show when={dbQuery.length > 0}>
+                    <div className="answer ps-4 pt-4">
+                        <div className="copy-btn"><i className='fa-solid fa-copy' onClick={copyDBQuery}></i></div>
+                        {dbQuery}
+                    </div>
+                </Show>
             </div>
         </Container>
     )
