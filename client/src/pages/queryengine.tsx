@@ -19,7 +19,8 @@ const QueryEnginePage: NextPage = () => {
         return <option className='options' key={db.value} value={db.value}>{db.label}</option>
     })
 
-    const fetchData = async () => {
+    const fetchData = async (e: any) => {
+        e.preventDefault()
         try {
             setFetching(true)
             const subscriptionKey = userState.subscriptionKey
@@ -39,17 +40,17 @@ const QueryEnginePage: NextPage = () => {
 
     return (
         <Container>
-            <div className='bigbox'>
+            <form className='bigbox' onSubmit={fetchData}>
                 <p className='branding'>Query Engine</p>
                 <FloatingLabel controlId='floatingSelectGrid' label='Select Database'>
                     <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
                         {dbToDisplay}
                     </Form.Select>
                 </FloatingLabel><br />
-                <FloatingLabel controlId='floatingQuery' label='Ask Your Query In English'>
-                    <Form.Control type='text' disabled={isFetching} placeholder='Ask Your Query In English' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} />
+                <FloatingLabel controlId='floatingQuery' label='Ask Your Query'>
+                    <Form.Control type='text' disabled={isFetching} placeholder='Ask Your Query' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} required />
                 </FloatingLabel><br />
-                <Button onClick={fetchData} disabled={isFetching} className='btn-block'>
+                <Button type='submit' disabled={isFetching} className='btn-block'>
                     <Show when={!isFetching}>Generate DB Query <i className='fa-solid fa-circle-arrow-right'></i></Show>
                     <Show when={isFetching}><i className='fas fa-circle-notch fa-spin'></i> Fetching</Show>
                 </Button>
@@ -59,7 +60,7 @@ const QueryEnginePage: NextPage = () => {
                         {dbQuery}
                     </div>
                 </Show>
-            </div>
+            </form>
         </Container>
     )
 }
