@@ -67,7 +67,7 @@ const PricingPage: NextPage = () => {
                 </Show>
             </div>
             <SubscribeModal price={Number(planPrice) * 10000} isOpened={isSubscribeModalOpened} closeModal={() => { hideSubscribeModal() }} selectedPlan={selectedPlan} />
-            <UnsubscribeModal tokenId={tokenId} refundAmount={Number(3.4) * 5000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
+            <UnsubscribeModal tokenId={tokenId} refundAmount={Number(0.2) * 5000} isOpened={isUnsubscribeModalOpened} closeModal={() => { hideUnsubscribeModal() }} />
         </Fragment>
     )
 }
