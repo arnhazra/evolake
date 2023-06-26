@@ -49,13 +49,15 @@ const PricingPage: NextPage = () => {
                 <div className='plans mt-2'>
                     <Show when={selectedPlan === 'Standard'}>
                         <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.standardSubscriptionPrice} MATIC</p>
-                        <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>Davinci Model</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>Database Queries</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>{subReqLimitState.standardSubscriptionReqLimit} API requests</p>
                         <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                     </Show>
                     <Show when={selectedPlan === 'Premium'}>
                         <p className='branding text-center'><i className='fa-brands fa-ethereum'></i>{subPlanState.premiumSubscriptionPrice} MATIC</p>
-                        <p className='lead'><i className='fa-solid fa-circle-check'></i>Data API</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>Davinci Model</p>
+                        <p className='lead'><i className='fa-solid fa-circle-check'></i>Database Queries</p>
                         <p className='lead'><i className='fa-solid fa-circle-check'></i>{subReqLimitState.premiumSubscriptionReqLimit} API requests</p>
                         <Button className='btn-block' onClick={() => setSubscribeModalOpened(true)}>Pay & Subscribe<i className="fa-solid fa-lock"></i></Button>
                     </Show>

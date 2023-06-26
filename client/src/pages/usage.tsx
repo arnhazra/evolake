@@ -25,12 +25,12 @@ const UsagePage: NextPage = () => {
     return (
         <Fragment>
             <div className='box'>
-                <p className='branding'>Usage<i className="fa-solid fa-code-pull-request"></i></p>
+                <p className='branding'>Usage<i className='fa-solid fa-code-pull-request'></i></p>
                 <p className='smalltext'>Used #API Requests</p>
                 <h4>
                     {userState.subscriptionKeyUsage} API REQ
                 </h4>
-                <Button disabled className='btn-block'>Plan Limit {maxLimit} <i className="fa-solid fa-wifi"></i></Button>
+                <Button disabled className='btn-block'>Plan Limit {maxLimit} <i className='fa-solid fa-wifi'></i></Button>
             </div>
         </Fragment >
     )

@@ -34,7 +34,7 @@ const AccountPage: NextPage = () => {
                 <p className='smalltext'>Signed in As</p>
                 <h4>{userState.name}</h4>
                 <Button className='btn-block' onClick={signOut}>Sign Out<i className='fa-solid fa-circle-arrow-right'></i></Button><br />
-                <p className="lead-link" onClick={signOutFromThisDevice}>Sign out from this device</p>
+                <p className='lead-link' onClick={signOutFromThisDevice}>Sign out from this device</p>
             </div>
         </Fragment >
     )

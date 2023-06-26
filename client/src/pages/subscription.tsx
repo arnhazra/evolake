@@ -28,7 +28,7 @@ const SubscriptionPage: NextPage = () => {
                     {selectedPlan}
                     <Show when={userState.subscriptionKey.length > 0}>
                         <Link title='Access NFT' target='_blank' passHref href={`https://mumbai.polygonscan.com/token/${contractAddress.nftContractAddress}?a=${tokenId}`}>
-                            <i className="fa-solid fa-shield"></i>
+                            <i className='fa-solid fa-shield'></i>
                         </Link>
                     </Show>
                 </h4>

@@ -1,7 +1,7 @@
 enum Constants {
-    HomeHeader1 = 'Join the age of',
-    HomeHeader2 = `AI accelerated `,
-    HomeHeader3 = `with Blockchain`,
+    HomeHeader1 = 'Generate DB Queries',
+    HomeHeader2 = `with Generative AI  `,
+    HomeHeader3 = `powered by Blockchain`,
     HomeIntro1 = `Generate Database queries in seconds,`,
     HomeIntro2 = `Using Lenstack that uses OpenAI Davinci model`,
     ConnectionErrorMessage = `Connection Error`,

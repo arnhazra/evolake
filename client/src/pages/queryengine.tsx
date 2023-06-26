@@ -15,14 +15,14 @@ const QueryEnginePage: NextPage = () => {
     const [isFetching, setFetching] = useState(false)
 
     const dbOptions = [
-        { value: "SQL", label: "SQL" },
-        { value: "MongoDB", label: "Mongo DB" },
-        { value: "PostgreSQL", label: "Postgre SQL" },
-        { value: "MariaDB", label: "Maria DB" },
-        { value: "Firebase", label: "Firebase" },
-        { value: "Prisma", label: "Prisma" },
-        { value: "GraphQL", label: "GraphQL" },
-        { value: "DynamoDB", label: "Dynamo DB" },
+        { value: 'SQL', label: 'SQL' },
+        { value: 'MongoDB', label: 'Mongo DB' },
+        { value: 'PostgreSQL', label: 'Postgre SQL' },
+        { value: 'MariaDB', label: 'Maria DB' },
+        { value: 'Firebase', label: 'Firebase' },
+        { value: 'Prisma', label: 'Prisma' },
+        { value: 'GraphQL', label: 'GraphQL' },
+        { value: 'DynamoDB', label: 'Dynamo DB' },
     ]
 
     const dbToDisplay = dbOptions.map((db) => {
@@ -49,8 +49,8 @@ const QueryEnginePage: NextPage = () => {
 
     return (
         <Container>
-            <div className="bigbox">
-                <p className="branding">Ask Your Query</p>
+            <div className='bigbox'>
+                <p className='branding'>Ask Your Query</p>
                 <FloatingLabel controlId='floatingSelectGrid' label='Select DB'>
                     <Form.Select onChange={(e): void => setSelectedDb(e.target.value)}>
                         {dbToDisplay}
@@ -64,8 +64,8 @@ const QueryEnginePage: NextPage = () => {
                     <Show when={isFetching}><i className='fas fa-circle-notch fa-spin'></i> Fetching</Show>
                 </Button>
                 <Show when={dbQuery.length > 0}>
-                    <div className="answer ps-4 pt-4">
-                        <div className="copy-btn"><i className='fa-solid fa-copy' onClick={copyDBQuery}></i></div>
+                    <div className='answer ps-4 pt-4'>
+                        <div className='copy-btn'><i className='fa-solid fa-copy' onClick={copyDBQuery}></i></div>
                         {dbQuery}
                     </div>
                 </Show>

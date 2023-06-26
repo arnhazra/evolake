@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { AppContext } from '@/context/appStateProvider'
 import Constants from '@/constants/appConstants'
+import { unprotectedRoutes } from '@/utils/unprotectedRoutes'
 
 const useAuth = () => {
     const [, dispatch] = useContext(AppContext)
@@ -12,7 +13,7 @@ const useAuth = () => {
     const router = useRouter()
 
     useEffect(() => {
-        if (!router.pathname.includes('/identity')) {
+        if (!unprotectedRoutes.includes(router.pathname)) {
             (async () => {
                 try {
                     const response = await axios.post(endPoints.userDetailsEndpoint)

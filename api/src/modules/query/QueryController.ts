@@ -29,7 +29,7 @@ export default class QueryController {
                 const openai = new OpenAIApi(configuration)
 
                 const response = await openai.createCompletion({
-                    model: "text-davinci-003",
+                    model: 'text-davinci-003',
                     prompt: finalQuery,
                     temperature: 0.3,
                     max_tokens: 120,
