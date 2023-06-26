@@ -1,6 +1,7 @@
 import Show from '@/components/Show'
 import endPoints from '@/constants/apiEndpoints'
 import { AppContext } from '@/context/appStateProvider'
+import { dbOptions } from '@/utils/dbOptions'
 import axios from 'axios'
 import { NextPage } from 'next'
 import React, { useContext, useState } from 'react'
@@ -13,17 +14,6 @@ const QueryEnginePage: NextPage = () => {
     const [dbQuery, setDbQuery] = useState('')
     const [{ userState }] = useContext(AppContext)
     const [isFetching, setFetching] = useState(false)
-
-    const dbOptions = [
-        { value: 'SQL', label: 'SQL' },
-        { value: 'MongoDB', label: 'Mongo DB' },
-        { value: 'PostgreSQL', label: 'Postgre SQL' },
-        { value: 'MariaDB', label: 'Maria DB' },
-        { value: 'Firebase', label: 'Firebase' },
-        { value: 'Prisma', label: 'Prisma' },
-        { value: 'GraphQL', label: 'GraphQL' },
-        { value: 'DynamoDB', label: 'Dynamo DB' },
-    ]
 
     const dbToDisplay = dbOptions.map((db) => {
         return <option className='options' key={db.value} value={db.value}>{db.label}</option>
