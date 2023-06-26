@@ -39,7 +39,7 @@ const PricingPage: NextPage = () => {
 
     return (
         <Fragment>
-            <div className='box'>
+            <div className='bigbox'>
                 <p className='branding'>Pricing<i className="fa-solid fa-money-check-dollar"></i></p>
                 <ButtonGroup className='btn-group-card'>
                     <Button className={selectedPlan === 'Standard' ? 'btn-grp-btn-sel' : 'btn-grp-btn'} onClick={(): void => setSelectedPlan('Standard')}>STANDARD</Button>
