@@ -12,8 +12,7 @@ const QueryEnginePage: NextPage = () => {
     const [userQuery, setUserQuery] = useState('')
     const [dbQuery, setDbQuery] = useState('')
     const [{ userState }] = useContext(AppContext)
-    const [isLoading, setLoading] = useState(false)
-    const [hasFetched, setFetched] = useState(false)
+    const [isFetching, setFetching] = useState(false)
 
     const dbOptions = [
         { value: "SQL", label: "SQL" },
@@ -32,18 +31,20 @@ const QueryEnginePage: NextPage = () => {
 
     const fetchData = async () => {
         try {
-            setLoading(true)
-            setFetched(false)
+            setFetching(true)
             const subscriptionKey = userState.subscriptionKey
             const response = await axios.post(endPoints.generateQueryEndpoint, { selectedDb, userQuery, subscriptionKey })
             setDbQuery(response.data.msg)
-            setLoading(false)
-            setFetched(true)
+            setFetching(false)
         } catch (error: any) {
             toast.error(error?.response?.data?.msg || 'Unknown Error, try again')
-            setLoading(false)
-            setFetched(true)
+            setFetching(false)
         }
+    }
+
+    const copyDBQuery = () => {
+        navigator.clipboard.writeText(`${dbQuery}`)
+        toast.success('Copied to Clipboard')
     }
 
     return (
@@ -56,14 +57,16 @@ const QueryEnginePage: NextPage = () => {
                     </Form.Select>
                 </FloatingLabel><br />
                 <FloatingLabel controlId='floatingQuery' label='Your Query'>
-                    <Form.Control type='text' placeholder='Your Query' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} />
+                    <Form.Control type='text' disabled={isFetching} placeholder='Your Query' onChange={(e) => setUserQuery(e.target.value)} autoComplete={'off'} />
                 </FloatingLabel><br />
-                <Button onClick={fetchData}>Generate DB Query</Button>
-                <Show when={hasFetched}>
-                    <div className="answer ps-4 pt-4">
-                        {dbQuery}
-                    </div>
-                </Show>
+                <Button onClick={fetchData} disabled={isFetching} className='btn-block'>
+                    <Show when={!isFetching}>Generate DB Query <i className='fa-solid fa-circle-arrow-right'></i></Show>
+                    <Show when={isFetching}><i className='fas fa-circle-notch fa-spin'></i> Fetching</Show>
+                </Button>
+                <div className="answer ps-4 pt-4">
+                    <div className="copy-btn"><i className='fa-solid fa-copy' onClick={copyDBQuery}></i></div>
+                    {dbQuery}
+                </div>
             </div>
         </Container>
     )

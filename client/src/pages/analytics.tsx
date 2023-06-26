@@ -15,8 +15,7 @@ const AnalyticsPage: NextPage = () => {
         return (
             <tr key={atc._id}>
                 <td>{atc.query}</td>
-                <td>{atc.response} MATIC</td>
-                <td>{moment(atc.date).format('MMM, Do YYYY, h:mm a')}</td>
+                <td>{atc.response}</td>
             </tr>
         )
     })
@@ -32,7 +31,6 @@ const AnalyticsPage: NextPage = () => {
                                 <tr>
                                     <th>Query</th>
                                     <th>Response</th>
-                                    <th>Date</th>
                                 </tr>
                             </thead>
                             <tbody>

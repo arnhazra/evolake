@@ -32,7 +32,7 @@ export default class QueryController {
                     model: "text-davinci-003",
                     prompt: finalQuery,
                     temperature: 0.3,
-                    max_tokens: 60,
+                    max_tokens: 120,
                     top_p: 1.0,
                     frequency_penalty: 0.0,
                     presence_penalty: 0.0,

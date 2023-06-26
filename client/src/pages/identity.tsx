@@ -85,7 +85,7 @@ const IdentityPage: NextPage = () => {
                     <FloatingLabel controlId='floatingEmail' label='Your Email'>
                         <Form.Control disabled={isLoading} autoFocus type='email' placeholder='Your Email' onChange={(e) => setState({ ...state, email: e.target.value })} required autoComplete={'off'} minLength={4} maxLength={40} />
                     </FloatingLabel><br />
-                    <Button variant='flat' type='submit' disabled={isLoading} className='mt-2 btn-block'>
+                    <Button type='submit' disabled={isLoading} className='mt-2 btn-block'>
                         <Show when={!isLoading}>Continue <i className='fa-solid fa-circle-arrow-right'></i></Show>
                         <Show when={isLoading}><i className='fas fa-circle-notch fa-spin'></i> {alert}</Show>
                     </Button>
