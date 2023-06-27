@@ -1,4 +1,4 @@
-const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://lenstack.vercel.app'
+const apiHost = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://evolake.vercel.app'
 
 const endPoints = {
     getAnalyticsByUserEndpoint: `${apiHost}/api/analytics/getbyuser`,

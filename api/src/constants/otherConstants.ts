@@ -1,6 +1,6 @@
 enum otherConstants {
     undefinedName = 'Undefined Name',
-    tokenIssuer = 'https://lenstack.vercel.app'
+    tokenIssuer = 'https://evolake.vercel.app'
 }
 
 export default otherConstants

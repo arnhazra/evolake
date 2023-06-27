@@ -3,7 +3,7 @@ enum Constants {
     HomeHeader2 = `with Generative AI  `,
     HomeHeader3 = `powered by Blockchain`,
     HomeIntro1 = `Generate Database queries in seconds,`,
-    HomeIntro2 = `Using Lenstack that uses OpenAI Davinci model`,
+    HomeIntro2 = `Using Evolake that uses OpenAI Davinci model`,
     ConnectionErrorMessage = `Connection Error`,
     AuthMessage = `Authenticating`,
     ErrorMessage = '404, Lost',

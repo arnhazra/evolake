@@ -24,7 +24,7 @@ const NavBar: FC = () => {
                 <Navbar variant='dark' className='navbar' expand='lg' fixed='top'>
                     <Container>
                         <Link href='/queryengine'>
-                            <Navbar.Brand>Lenstack</Navbar.Brand>
+                            <Navbar.Brand>Evolake</Navbar.Brand>
                         </Link>
                         <Navbar.Toggle></Navbar.Toggle>
                         <Navbar.Collapse>
@@ -44,7 +44,7 @@ const NavBar: FC = () => {
                 <Navbar variant='dark' className='navbar' expand='lg' fixed='top'>
                     <Container>
                         <Link href='/'>
-                            <Navbar.Brand>Lenstack</Navbar.Brand>
+                            <Navbar.Brand>Evolake</Navbar.Brand>
                         </Link>
                         <Navbar.Toggle></Navbar.Toggle>
                         <Navbar.Collapse>

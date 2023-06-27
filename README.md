@@ -1,4 +1,4 @@
-## Lenstack
+## Evolake
 
 An open source application that uses OpenAI Davinci model to generate DB queries, built using MERN Stack with Next JS and the payment systems uses Ethereum blockchain.
 

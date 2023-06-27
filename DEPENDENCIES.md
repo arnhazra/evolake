@@ -1,4 +1,4 @@
-# Lenstack Dependencies
+# Evolake Dependencies
 
 * cors - Enables Cross-Origin Resource Sharing for Express middleware.
 * dotenv - Loads environment variables from a .env file.

@@ -1,5 +1,5 @@
 {
-  "name": "lenstack",
+  "name": "evolake",
   "version": "1.0.0",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix api\" \"npm run dev --prefix client\"",
